@@ -282,7 +282,7 @@ export default function Main() {
                 </div>
             </div>
             <div className={'w-[1px] h-8 border-[1px] border-black border-dashed absolute left-[900px] top-[308px] '}></div>
-            <div className={'w-0.5 h-8 bg-black absolute left-[900px] top-[348px] '}></div>
+            <div className={'w-0.5 h-8 bg-black absolute left-[900px] top-[348px] '}> </div>
 
 
         </div>
