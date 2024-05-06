@@ -21,7 +21,7 @@ export default function Main() {
         };
     }, []);
 
-    console.log(data)
+
 
     const fetchData = async () => {
         try {
@@ -48,7 +48,7 @@ export default function Main() {
                 <div className={'w-full h-10 border-b-2 border-black'}></div>
                 <div className={'w-full h-full text-2xl bg-[#85dbec] font-semibold pt-2 relative'}>
                     Buffer tank
-                    <div className={'absolute -bottom-12 right-0 p-1 border-2 border-red-500 text-red-500 text-lg uppercase   '}>
+                    <div className={'absolute -bottom-12 right-0 left-0 m-auto p-1 w-[100px] border-2 border-red-500 text-red-500 text-lg uppercase   '}>
                         {data?.data[1]?.data} % FULL
                     </div>
                 </div>
@@ -227,7 +227,7 @@ export default function Main() {
                                     <div className={'relative'}>
                                         <div className={'w-5 h-5 rounded-full border-2 border-black translate-x-0.5 translate-y-0.5 font-semibold pl-[1px] text-xs relative'}>
                                             M
-                                            <span className={'absolute -right-14 -top-1.5 text-lg'}>Valve''</span>
+                                            <span className={'absolute -right-16 -top-1.5 text-lg'}>Valve''</span>
                                         </div>
                                         <img src={second_icon} className={'w-6 h-6 object-contain rotate-90 '} alt={`second icon`}/>
                                     </div>
