@@ -48,7 +48,7 @@ export default function Main() {
                 <div className={'w-full h-10 border-b-2 border-black'}></div>
                 <div className={'w-full h-full text-2xl bg-[#85dbec] font-semibold pt-2 relative'}>
                     Buffer tank
-                    <div className={'absolute -bottom-12 right-0 left-0 m-auto p-1 w-[100px] h-[40px] border-2 border-red-500 text-red-500 text-lg uppercase   '}>
+                    <div className={'whitespace-nowrap absolute -bottom-12 right-0 left-0 m-auto p-1 w-[100px] h-[40px] border-2 border-red-500 text-red-500 text-lg uppercase   '}>
                         {data?.data[1]?.data} % FULL
                     </div>
                 </div>
