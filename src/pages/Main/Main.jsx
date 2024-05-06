@@ -95,7 +95,7 @@ export default function Main() {
                                 <div className={'w-0.5 h-3 bg-black'}></div>
                             </div>
                         </div>
-                        <div className={'absolute flex flex-row items-center -right-[84px] top-12   '}>
+                        <div className={'absolute flex flex-row items-center -right-[85px] top-12   '}>
                             <img src={first_icon} className={'w-6 h-6 object-contain '} alt={`first icon`}/>
                             <span className={'ml-2'}>1'</span>
                             <div className={'p-1 border-2 border-red-500 text-red-500 font-semibold text-xs ml-1'}>
@@ -103,7 +103,7 @@ export default function Main() {
                             </div>
                         </div>
 
-                        <div className={'absolute flex flex-row items-start -right-[59px] top-24'}>
+                        <div className={'absolute flex flex-row items-start -right-[60px] top-24'}>
 
                             <div className={'relative'}>
                                 <img src={second_icon} className={'w-6 h-6 object-contain '} alt={`second icon`}/>
@@ -171,7 +171,7 @@ export default function Main() {
                                 <div className={'w-0.5 h-3 bg-black'}></div>
                             </div>
                         </div>
-                        <div className={'absolute flex flex-row items-center -right-[84px] top-12   '}>
+                        <div className={'absolute flex flex-row items-center -right-[85px] top-12   '}>
                             <img src={first_icon} className={'w-6 h-6 object-contain '} alt={`second icon`}/>
                             <span className={'ml-2'}>1'</span>
                             <div className={'p-1 border-2 border-red-500 text-red-500 font-semibold text-xs ml-1'}>
