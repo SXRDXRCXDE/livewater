@@ -166,7 +166,7 @@ export default function Main() {
                             <div className={'p-1 border-2 border-black relative'}>
                                 AG
 
-                                <div className={'absolute -bottom-0 -left-[55px] text-xs gap-0.5 flex  items-center'}>
+                                <div className={'absolute -bottom-0 -left-[60px] text-xs gap-0.5 flex  items-center'}>
                                     <div className={'whitespace-nowrap  p-1 border-2 border-red-500 text-red-500 font-semibold text-[9px]  relative'}>
                                         {data[22]?.data} kw
                                     </div>
@@ -273,7 +273,7 @@ export default function Main() {
 
                             <div className={'p-1 border-2 border-black relative'}>
                                 AG
-                                <div className={'absolute -bottom-0 -left-[55px] text-xs gap-0.5 flex  items-center'}>
+                                <div className={'absolute -bottom-0 -left-[60px] text-xs gap-0.5 flex  items-center'}>
                                     <div
                                         className={'whitespace-nowrap  p-1 border-2 border-red-500 text-red-500 font-semibold text-[9px]  relative'}>
                                         {data[21]?.data} kw
