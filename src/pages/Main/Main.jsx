@@ -5,31 +5,42 @@ import {PiArrowFatDownLight} from "react-icons/pi";
 import axios from "axios";
 import StateToggle from "../../components/StateToggle/StateToggle";
 
-
 export default function Main() {
 
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const [errorr, setError] = useState(null);
 
-    const baseURL = 'https://mhpp-api.vercel.app/get_data'
+    useEffect(() => {
+        const fetchDataInterval =setInterval(() => {
+            fetchData();
+        }, 3000);
 
-    // useEffect(() => {
-    //     fetchData()
-    // }, []);
-    //
-    //
-    // const fetchData = async () => {
-    //         const response = await axios.get('https://mhpp-api.vercel.app/get_data', {}).then((response) => {console.log(response)}).catch((e) => console.error(e));
-    // };
-    //
-    //
-    // console.log(data)
+        return () => {
+           clearInterval(fetchDataInterval);
+        };
+    }, []);
 
-    axios.get('https://mhpp-api.vercel.app/get_data', {
-        headers: {
-            'Access-Control-Allow-Origin': '*'
+
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('https://mhpp-api.vercel.app/get_data');
+            const dataArray = response?.data?.data; // Accessing the data property which holds the array
+            // Now you can work with the dataArray as an array
+            console.log(dataArray); // Output the array to the console
+            setData(dataArray)
+            // For example, you can iterate over the array
+            // dataArray.forEach(item => {
+            //     console.log(item.id, item.data); // Output each item's id and data
+            //     // You can perform any other operations you need with each item here
+            // });
+        } catch (error) {
+            setError(error);
+            console.log(error);
         }
-    }).then((response) => {console.log(response)}).catch((error) => {console.log(error)})
+    };
+
+    console.log(data);
 
     return <>
         <div className={'w-[1180px] h-[780px] bg-white rounded-xl shadow-2xl flex flex-col items-start relative'}>
@@ -48,7 +59,7 @@ export default function Main() {
                     Buffer tank
                     <div
                         className={'whitespace-nowrap absolute -top-20 right-0 left-0 m-auto p-1 w-[100px] h-[40px] border-2 border-[#4ea1e3] text-[#4ea1e3] text-lg uppercase text-lg]   '}>
-                        {data?.data[1]?.data} % FULL
+                        {data[0]?.data} % FULL
                     </div>
 
                     <div
@@ -68,7 +79,7 @@ export default function Main() {
                         <div
                             className={'whitespace-nowrap   w-[50px] h-[25px] bg-[#71f54a] text-sm text-[#dc5d3e]'}>bt_v1
                         </div>
-                        <StateToggle state={`close`}/>
+                        <StateToggle state={data[1]?.data}/>
                         <img src={first_icon} className={'w-6 h-6 object-contain rotate-90 '} alt={`first icon`}/>
                     </div>
                     <div className={'absolute flex flex-col items-center -bottom-[67px] left-4 gap-1  '}>
@@ -76,7 +87,7 @@ export default function Main() {
                         <div
                             className={'whitespace-nowrap   w-[50px] h-[25px] bg-[#71f54a] text-sm text-[#dc5d3e]'}>bt_v2
                         </div>
-                        <StateToggle state={`close`}/>
+                        <StateToggle state={data[2]?.data}/>
                     </div>
                     <div className={'absolute -bottom-[181px] -right-0.5 h-4 w-0.5 bg-black'}></div>
                     <div className={'absolute -bottom-[201px] -right-0.5 h-4 w-0.5 bg-black'}></div>
@@ -88,11 +99,11 @@ export default function Main() {
                 <div className={'w-full h-full flex items-start'}>
                     <div className={'w-48 h-full border-r-2 border-black relative'}>
 
-                        <div className={'absolute flex flex-row items-center -left-[126px] top-12 gap-1  '}>
+                        <div className={'absolute flex flex-row items-center -left-[122px] top-12 gap-1  '}>
                             <div
                                 className={'whitespace-nowrap   w-[60px] h-[30px] bg-[#71f54a] text-lg text-[#dc5d3e]'}>v_3
                             </div>
-                            <StateToggle state={`close`}/>
+                            <StateToggle state={data[6]?.data}/>
                             <img src={first_icon} className={'w-6 h-6 object-contain '} alt={`first icon`}/>
                             <span className={'ml-2'}>3</span>
                         </div>
@@ -101,7 +112,7 @@ export default function Main() {
                             <div
                                 className={'whitespace-nowrap   w-[60px] h-[30px] bg-[#71f54a] text-lg text-[#dc5d3e]'}>v_4
                             </div>
-                            <StateToggle state={`close`}/>
+                            <StateToggle state={data[7]?.data}/>
                             <img src={first_icon} className={'w-6 h-6 object-contain rotate-90'} alt={`first icon`}/>
                             <span>4</span>
                         </div>
@@ -110,16 +121,16 @@ export default function Main() {
                         <div className={'flex flex-col items-center absolute w-20 h-auto top-1 -right-[41px] gap-1'}>
                             <div className={'flex items-center gap-3'}>
                                 <div
-                                    className={'whitespace-nowrap -translate-x-2 p-1 border-2 border-red-500 text-red-500 font-semibold text-xs ml-1 relative'}>
+                                    className={'whitespace-nowrap -translate-x-6 p-1 border-2 border-red-500 text-red-500 font-semibold text-xs ml-1 relative'}>
                                     <div
                                         className={'bg-[#71f54a] p-1  text-[#dc5d3e] absolute left-0 right-0 m-auto -top-7'}>wm2
                                     </div>
-                                    450 l/s
+                                    {data[5]?.data} l/s
                                 </div>
-                                <span className={'   font-semibold relative'}>
+                                <span className={'  font-semibold relative'}>
                                     <div className={'flex flex-col items-center gap-0.5 absolute  left-0 -top-[45px] m-auto'}>
                                         <div className={'whitespace-nowrap  p-0.5  border-2 border-[#4ea1e3] text-[#4ea1e3] text-xs '}>
-                                            p =xxx kpa
+                                            p ={data[28]?.data} kpa
                                         </div>
                                         <div className={'bg-[#71f54a] p-1  text-[#dc5d3e] text-[10px] '}>p_g</div>
                                     </div>
@@ -127,7 +138,7 @@ export default function Main() {
                                 </span>
                             </div>
 
-                            <div className={'flex items-center gap-3'}>
+                            <div className={'flex items-center gap-3 -translate-y-5'}>
                                 <div className={'w-0.5 h-3 bg-black'}></div>
                                 <div className={'w-0.5 h-3 bg-black'}></div>
                             </div>
@@ -136,7 +147,7 @@ export default function Main() {
                             <div
                                 className={'whitespace-nowrap   w-[60px] h-[30px] bg-[#71f54a] text-lg text-[#dc5d3e] mr-0.5'}>v_b_t2
                             </div>
-                            <StateToggle state={`close`}/>
+                            <StateToggle state={data[8]?.data}/>
                             <img src={first_icon} className={'w-6 h-6 object-contain '} alt={`first icon`}/>
                             <span className={'ml-2'}>1'</span>
 
@@ -148,7 +159,7 @@ export default function Main() {
                                 <div className={'absolute -bottom-7 -left-12 text-xs gap-0.5 flex  items-center'}>
                                     <div className={'p-0.5 bg-[#71f54a] text-[#dc5d3e]'}>p_b_t2</div>
                                     <div className={'whitespace-nowrap  p-0.5  border-2 border-[#4ea1e3] text-[#4ea1e3] text-xs '}>
-                                            p =xxx kpa
+                                            p ={data[15]?.data} kpa
                                     </div>
                                 </div>
                             </span>
@@ -163,10 +174,10 @@ export default function Main() {
                                 <div
                                     className={'whitespace-nowrap   w-[70px] h-[30px] bg-[#71f54a] text-lg text-[#dc5d3e] mr-0.5'}>mv_b_t2
                                 </div>
-                                <StateToggle state={`close`}/>
+                                <StateToggle state={data[19]?.data}/>
 
                                 <div className={'absolute -bottom-9 text-xs flex flex-col items-center'}>
-                                    <div className={'text-[#54af57]'}>xxx %</div>
+                                    <div className={'text-[#54af57]'}>{data[20]?.data} %</div>
                                     <div className={'p-0.5 bg-[#71f54a] text-[#dc5d3e]'}>mvi_b_t2</div>
                                 </div>
                             </div>
@@ -181,8 +192,8 @@ export default function Main() {
 
                                 <div className={'absolute -bottom-0 -left-[70px] text-xs gap-0.5 flex  items-center'}>
                                     <div className={'p-0.5 bg-[#71f54a] text-[#dc5d3e]'}>t2</div>
-                                    <div className={'whitespace-nowrap  p-1 border-2 border-red-500 text-red-500 font-semibold text-xs  relative'}>
-                                        105 kw
+                                    <div className={'whitespace-nowrap  p-1 border-2 border-red-500 text-red-500 font-semibold text-[9px]  relative'}>
+                                        {data[22]?.data} kw
                                     </div>
                                 </div>
 
@@ -190,7 +201,7 @@ export default function Main() {
                                     <div className={'p-0.5 bg-[#71f54a] text-[#dc5d3e]'}>p_p_t2</div>
                                     <div
                                         className={'whitespace-nowrap  p-0.5  border-2 border-[#4ea1e3] text-[#4ea1e3] text-xs '}>
-                                    p =xxx kpa
+                                    p ={data[13]?.data} kpa
                                     </div>
                                 </div>
                             </div>
@@ -207,7 +218,7 @@ export default function Main() {
                             <div
                                 className={'whitespace-nowrap   w-[60px] h-[20px] bg-[#71f54a] text-xs text-[#dc5d3e] mr-0.5'}>v_p_t2
                             </div>
-                            <StateToggle state={`close`}/>
+                            <StateToggle state={data[9]?.data}/>
                             <img src={first_icon} className={'w-6 h-6 object-contain '} alt={`first icon`}/>
                             <span className={'ml-2'}>2'</span>
                         </div>
@@ -232,19 +243,19 @@ export default function Main() {
                                     <div
                                         className={'bg-[#71f54a] p-1  text-[#dc5d3e] absolute -right-10 top-0 bottom-0 m-auto'}>wm0
                                     </div>
-                                    450 l/s
+                                    {data[3 ]?.data} l/s
                                 </div>
                             </div>
                         </div>
 
-                        <div className={'flex  items-center absolute w-20 h-auto top-2 -right-[20px] '}>
+                        <div className={'flex  items-center absolute w-20 h-auto top-2 -right-[5px] '}>
                             <div className={'flex flex-col items-center'}>
                                 <div
                                     className={'whitespace-nowrap -translate-x-2 p-1 border-2 border-red-500 text-red-500 font-semibold text-xs ml-1 relative'}>
                                     <div
                                         className={'bg-[#71f54a] p-1  text-[#dc5d3e] absolute left-0 right-0 m-auto -top-7'}>wm1
                                     </div>
-                                    450 l/s
+                                    {data[4]?.data} l/s
                                 </div>
                             </div>
                             <div className={'flex items-center gap-3'}>
@@ -257,19 +268,19 @@ export default function Main() {
                             <div
                                 className={'whitespace-nowrap   w-[60px] h-[20px] bg-[#71f54a] text-xs text-[#dc5d3e] mr-0.5'}>v_b_t1
                             </div>
-                            <StateToggle state={`close`}/>
+                            <StateToggle state={data[10]?.data}/>
                             <img src={first_icon} className={'w-6 h-6 object-contain '} alt={`second icon`}/>
                             <span className={'ml-2'}>1</span>
                         </div>
 
-                        <div className={'absolute flex flex-row items-start -right-[116px] top-24'}>
+                        <div className={'absolute flex flex-row items-start -right-[114px] top-24'}>
                             <span className={'-translate-x-5 relative'}>
                                 Valve
                                 <div className={'absolute -bottom-8 -left-12 text-xs gap-0.5 flex  items-center'}>
                                     <div className={'p-0.5 bg-[#71f54a] text-[#dc5d3e]'}>p_b_t1</div>
                                     <div
                                         className={'whitespace-nowrap  p-0.5  border-2 border-[#4ea1e3] text-[#4ea1e3] text-xs '}>
-                                            p =xxx kpa
+                                            p ={data[14]?.data} kpa
                                     </div>
                                 </div>
                             </span>
@@ -284,14 +295,14 @@ export default function Main() {
                             <div className={'flex flex-col items-start'}>
 
                                 <div className={'flex  items-start gap-0.5 '}>
-                                    <StateToggle state={`close`}/>
+                                    <StateToggle state={data[17]?.data}/>
                                     <div
                                         className={'whitespace-nowrap   w-[60px] h-[20px] bg-[#71f54a] text-xs text-[#dc5d3e] mr-0.5'}>mv_b_t1
                                     </div>
                                 </div>
 
                                 <div className={'flex  items-start translate-x-1 gap-0.5 '}>
-                                    <div className={'text-[#54af57]'}>xxx %</div>
+                                    <div className={'text-[#54af57]'}>{data[18]?.data} %</div>
                                     <div
                                         className={'whitespace-nowrap   w-[60px] h-[20px] bg-[#71f54a] text-xs text-[#dc5d3e] mr-0.5'}>mvi_b_t1
                                     </div>
@@ -309,8 +320,8 @@ export default function Main() {
                                 <div className={'absolute -bottom-0 -left-[70px] text-xs gap-0.5 flex  items-center'}>
                                     <div className={'p-0.5 bg-[#71f54a] text-[#dc5d3e]'}>t1</div>
                                     <div
-                                        className={'whitespace-nowrap  p-1 border-2 border-red-500 text-red-500 font-semibold text-xs  relative'}>
-                                        105 kw
+                                        className={'whitespace-nowrap  p-1 border-2 border-red-500 text-red-500 font-semibold text-[9px]  relative'}>
+                                        {data[21]?.data} kw
                                     </div>
                                 </div>
 
@@ -318,7 +329,7 @@ export default function Main() {
                                     <div className={'p-0.5 bg-[#71f54a] text-[#dc5d3e]'}>p_p_t1</div>
                                     <div
                                         className={'whitespace-nowrap  p-0.5  border-2 border-[#4ea1e3] text-[#4ea1e3] text-xs '}>
-                                        p =xxx kpa
+                                        p ={data[12]?.data} kpa
                                     </div>
                                 </div>
 
@@ -333,7 +344,7 @@ export default function Main() {
                         </div>
 
                         <div className={'absolute flex flex-row items-center -right-[27px] top-60 '}>
-                            <StateToggle state={`close`}/>
+                            <StateToggle state={data[11]?.data}/>
                             <div
                                 className={'whitespace-nowrap ml-0.5  w-[60px] h-[20px] bg-[#71f54a] text-xs text-[#dc5d3e] mr-0.5'}>v_p_t1
                             </div>
@@ -344,7 +355,7 @@ export default function Main() {
                         <div className={'absolute -bottom-[29px] left-9 gap-2 flex flex-col items-center'}>
                             <div
                                 className={'whitespace-nowrap  p-0.5  border-2 border-[#4ea1e3] text-[#4ea1e3] text-xs '}>
-                                p =xxx kpa
+                                p ={data[16]?.data} kpa
                             </div>
                             <div className={'p-0.5 bg-[#71f54a] text-[#dc5d3e] text-sm'}>p_or</div>
                         </div>
@@ -371,14 +382,14 @@ export default function Main() {
                                         <div className={'flex flex-col items-start'}>
 
                                             <div className={'flex  items-start gap-0.5 '}>
-                                                <StateToggle state={`close`}/>
+                                                <StateToggle state={data[23]?.data}/>
                                                 <div
                                                     className={'whitespace-nowrap   w-[60px] h-[20px] bg-[#71f54a] text-xs text-[#dc5d3e] mr-0.5'}>mv_r
                                                 </div>
                                             </div>
 
                                             <div className={'flex  items-start translate-x-1 gap-0.5 '}>
-                                                <div className={'text-[#54af57]'}>xxx %</div>
+                                                <div className={'text-[#54af57]'}>{data[24]?.data} %</div>
                                                 <div
                                                     className={'whitespace-nowrap   w-[60px] h-[20px] bg-[#71f54a] text-xs text-[#dc5d3e] mr-0.5'}>mvi_r
                                                 </div>
@@ -389,7 +400,7 @@ export default function Main() {
 
                                 </div>
 
-                            <div className={'absolute flex flex-col items-start left-5 -bottom-[34px]   '}>
+                            <div className={'absolute flex flex-col items-start left-2.5 -bottom-[34px]   '}>
                                 <div className={'flex items-center self-end'}>
                                     <img src={first_icon} className={'w-6 h-6 object-contain rotate-90'}
                                          alt={`first icon`}/>
@@ -399,7 +410,7 @@ export default function Main() {
                                     <div
                                         className={'whitespace-nowrap ml-0.5  w-[50px] h-[20px] bg-[#71f54a] text-xs text-[#dc5d3e] mr-0.5'}>v_7
                                     </div>
-                                    <StateToggle state={`close`}/>
+                                    <StateToggle state={data[25]?.data}/>
 
                                 </div>
 
@@ -436,13 +447,13 @@ export default function Main() {
 
             <div className={'absolute left-[460px] top-60 flex flex-col items-center'}>
                 <div className={'text-2xl font-semibold text-[#4ea1e3] flex items-center gap-1'}>
-                    Water pH: xx.xx
+                    Water pH: {data[27]?.data}
                     <div
                         className={'whitespace-nowrap ml-0.5  w-[50px] h-[20px] bg-[#71f54a] text-xs text-[#dc5d3e] mr-0.5'}>w_ph_g
                     </div>
                 </div>
                 <div className={'text-2xl font-semibold text-[#4ea1e3] flex items-center gap-1'}>
-                    Water temperature: xxx.x °C
+                    Water temperature: {data[26]?.data} °C
                     <div
                         className={'whitespace-nowrap ml-0.5  w-[50px] h-[20px] bg-[#71f54a] text-xs text-[#dc5d3e] mr-0.5'}>w_t_g
                     </div>
@@ -456,7 +467,7 @@ export default function Main() {
                         <div
                             className={'whitespace-nowrap ml-0.5  w-[60px] h-[20px] bg-[#71f54a] text-xs text-[#dc5d3e] mr-0.5'}>v_dam
                         </div>
-                        <StateToggle state={`close`}/>
+                        <StateToggle state={data[29]?.data}/>
                         <img src={first_icon} className={'w-6 h-6 object-contain ml-2 '} alt={`first icon`}/>
                         <span className={'ml-2'}>0</span>
                     </div>
